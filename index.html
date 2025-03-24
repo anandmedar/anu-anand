@@ -2,446 +2,364 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surprise for My Love</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        /* Countdown Section */
-        #countdown-container {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(60deg, violet, indigo, blue, green, yellow, orange, red);
-            animation: backgroundAnimation 10s infinite alternate;
-            color: white;
-            font-size: 2rem;
-        }
-
-        @keyframes backgroundAnimation {
-            0% {
-                background-position: left;
-            }
-
-            100% {
-                background-position: right;
-            }
-        }
-
-        /* Night Sky Background */
-        #main-content {
-            display: none;
-            opacity: 0;
-            position: relative;
-            height: 100vh;
-            background: linear-gradient(to bottom, #0b3d91, #010a43);
-            transition: opacity 2s ease-in-out;
-            overflow: hidden;
-        }
-
-        /* Stars */
-        .star {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: twinkle 1.5s infinite alternate;
-        }
-
-        @keyframes twinkle {
-            0% {
-                opacity: 0.3;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        /* Moon */
-        .moon {
-            position: absolute;
-            top: 50px;
-            right: 50px;
-            width: 80px;
-            height: 80px;
-            background: #f5f3ce;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .moon-text {
-            font-family: 'Dancing Script', cursive;
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            /* You can change this color to whatever you like */
-            text-align: center;
-        }
-
-        /* Heart Balloons */
-        #balloons-container {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-        }
-
-        .balloon {
-            position: absolute;
-            bottom: -100px;
-            width: 50px;
-            height: 50px;
-            background: red;
-            clip-path: path('M24 8C24 3 20 0 16 0C12 0 8 3 8 8C8 12 16 20 16 20C16 20 24 12 24 8Z');
-            animation: floatBalloon 4s linear infinite;
-        }
-
-        @keyframes floatBalloon {
-            0% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-100vh);
-                opacity: 0;
-            }
-        }
-
-        /* Floating Hearts */
-        .floating-hearts {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .heart {
-            position: absolute;
-            color: crimson;
-            font-size: 2rem;
-            animation: floatHearts 5s linear infinite;
-        }
-
-        @keyframes floatHearts {
-            0% {
-                transform: translateY(100vh) scale(0.5);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translateY(-10vh) scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        /* Greeting Card */
-        #greeting-card {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 678px;
-            height: 420px;
-            background: white;
-            box-shadow: 0 0 15px crimson;
-            text-align: center;
-            border-radius: 10px;
-            overflow: hidden;
-            animation: foldCard 0.5s forwards;
-            z-index: 100;
-        }
-
-        @media screen and (max-width: 768px) {
-            #greeting-card {
-                width: 360px;
-                height: 580px;
-            }
-        }
-
-        /* Folding Animation */
-        @keyframes foldCard {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-
-        .card-inner {
-            padding: 20px;
-            position: relative;
-        }
-
-        .card-inner p {
-            font-size: 16px;
-            line-height: 1.4;
-            color: #000;
-        }
-
-        /* Glow Effect */
-        @keyframes glow {
-            0% {
-                box-shadow: 0 0 15px crimson;
-            }
-
-            100% {
-                box-shadow: 0 0 30px crimson;
-            }
-        }
-
-        #greeting-card h2 {
-            font-family: 'Dancing Script', cursive;
-            animation: heartbeat 1s infinite;
-            color: crimson;
-        }
-
-        @keyframes heartbeat {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.1);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        #close-card {
-            margin-top: 10px;
-            cursor: pointer;
-            background: red;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            border: 1px solid red;
-        }
-
-        #close-card:hover {
-            background: white;
-            color: red;
-        }
-
-        /* Surprise Button */
-        #show-card-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 15px 30px;
-            font-size: 1.5rem;
-            background: orangered;
-            border: 1px solid orangered;
-            color: #fff;
-            border-radius: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        #show-card-button:hover {
-            background-color: #fff;
-            color: orangered;
-        }
-
-        /* Balloons Container */
-        #balloons-container {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        /* Floating Emoji */
-        .emoji {
-            position: absolute;
-            bottom: -50px;
-            font-size: 2rem;
-            animation: floatEmoji 4s linear infinite;
-        }
-
-        @keyframes floatEmoji {
-            0% {
-                transform: translateY(0) scale(0.8);
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-100vh) scale(1.2);
-                opacity: 0;
-            }
-        }
-
-        /* Realistic Stars */
-        .star {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: twinkle 2s infinite alternate;
-        }
-
-        @keyframes twinkle {
-            0% {
-                opacity: 0.2;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        .star:nth-child(even) {
-            animation-duration: 1.5s;
-        }
-
-        .star:nth-child(odd) {
-            animation-duration: 2.5s;
-        }
-    </style>
+  <title>Anu❤️Anand</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="Tooplate">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/all.min.css">
+  <link rel="stylesheet" href="./css/owl.carousel.min.css">
+  <link rel="stylesheet" href="./css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="./css/Anu-Anand.css">
 </head>
 
-<body>
-    <!-- Countdown Section -->
-    <div id="countdown-container">
-        <h1>Countdown to Your Special Day</h1>
-        <div id="countdown"></div>
-    </div>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
 
-    <!-- Surprise Content -->
-    <div id="main-content">
-        <div class="moon">
-            <span class="moon-text">Anu</span>
+  <!-- MENU BAR -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+      <a class="navbar-brand" href="#">Anu - Anand</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a href="#intro" class="nav-link smoothScroll">Introduction</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#about" class="nav-link smoothScroll">About Me</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#experience" class="nav-link smoothScroll">Experience</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#skills" class="nav-link smoothScroll">Skills</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#education" class="nav-link smoothScroll">Education</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#contact" class="nav-link smoothScroll">Contact</a>
+          </li>
+        </ul>
+
+        <div class="mt-lg-0 mt-3 mb-4 mb-lg-0">
+          <a href="./Anu-Resume.pdf" class="custom-btn btn" download>Download CV</a>
         </div>
-        <div class="floating-hearts"></div>
-        <div id="balloons-container"></div>
+      </div>
 
-        <button id="show-card-button">Kiss me</button>
     </div>
+  </nav>
 
-    <!-- Greeting Card -->
-    <div id="greeting-card">
-        <div class="card-inner">
-            <p>"A year ago, destiny played a game… But love had other plans. And today, I'm the luckiest guy because of
-                you."</p>
-            <p>From a 'Yes' to a 'No' and then a 'Forever Yes' - We have travelled through destiny’s twists and turns,
-                hand in hand. You are not just the love of my life, you are the miracle that turned my world into a
-                beautiful dream.</p>
-            <h2>Happy Birthday My Love! 🎉</h2>
-            <p>Today is special not just because you were born, but because you were born to be my soulmate. Every
-                moment with you is precious, and I promise to cherish, protect, and love you for a lifetime. You are my
-                greatest gift, and I can't wait to build a forever with you. Happy Birthday, my Queen! my Heart! my Baby! 
-                my Sweety! my Everything! nan Bangara 😊</p>
-            <button id="close-card">Kiss me to close</button>
+  <!-- HERO -->
+  <section class="hero d-flex flex-column justify-content-center align-items-center" id="intro">
+
+    <div class="container">
+      <div class="row">
+
+        <div class="d-flex flex-column justify-content-centeralign-items-center mx-auto col-lg-5 col-md-5 col-10">
+          <img src="./images/Home.png" class="img-fluid" alt="Anu❤️Anand">
         </div>
+
+        <div class="d-flex flex-column justify-content-centeralign-items-center  col-lg-7 col-md-7 col-12">
+          <div class="hero-text">
+
+            <h1 class="hero-title">👋 Anu, <span>a passionate teacher</span></h1>
+
+            <a href="tel:+917411625092" class="email-link">
+              Call Me
+            </a>
+
+          </div>
+        </div>
+
+      </div>
     </div>
+  </section>
 
-    <script>
-        // Function to generate random stars
-        function generateStars() {
-            const numStars = 150;
-            const starContainer = document.getElementById("main-content");
+  <!-- ABOUT ME -->
+  <section class="about section-padding" id="about">
+    <div class="container">
+      <div class="row">
 
-            for (let i = 0; i < numStars; i++) {
-                const star = document.createElement("div");
-                star.classList.add("star");
-                const size = Math.random() * 3 + "px";  // Random size for stars
-                const positionX = Math.random() * window.innerWidth + "px"; // Random horizontal position
-                const positionY = Math.random() * window.innerHeight + "px"; // Random vertical position
-                star.style.width = size;
-                star.style.height = size;
-                star.style.left = positionX;
-                star.style.top = positionY;
+        <div class="col-lg-6 col-md-6 col-12">
+          <h3 class="mb-4">This is Anu's Resume</h3>
 
-                starContainer.appendChild(star);
-            }
-        }
+          <p>Passionate about making Mathematics an enjoyable and accessible subject, I am a dedicated educator with a
+            strong background in teaching and tutoring. With two years of experience as a Mathematics teacher and four
+            years as a private tutor, I have helped students build confidence in problem-solving and logical thinking.
+            My approach focuses on simplifying complex concepts through real-world applications, interactive methods,
+            and personalized learning strategies to cater to each student's unique needs.</p>
 
-        document.addEventListener("DOMContentLoaded", function () {
-            // Initialize stars when the page loads
-            generateStars();
+          <p>Beyond the classroom, I am committed to continuous learning and innovative teaching techniques that enhance
+            student engagement. I believe that Mathematics is not just about numbers but about developing analytical and
+            reasoning skills that empower students in all aspects of life. Whether through one-on-one mentoring or
+            classroom instruction, my goal is to inspire curiosity, boost academic performance, and make learning a
+            rewarding experience for every student I teach.</p>
 
-            let countDownDate = new Date("Aug 10, 2025 00:00:00").getTime();
-            let countdownElement = document.getElementById("countdown");
-            let countdownInterval = setInterval(function () {
-                let now = new Date().getTime();
-                let distance = countDownDate - now;
-                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+          <ul class="mt-4 mb-5 mb-lg-0 profile-list list-unstyled">
+            <li><strong>Full Name :</strong> Anusha </li>
 
-                if (distance < 0) {
-                    clearInterval(countdownInterval);
-                    document.getElementById("countdown-container").style.display = "none";
-                    document.getElementById("main-content").style.display = "block";
-                    setTimeout(() => { document.getElementById("main-content").style.opacity = "1"; }, 100);
-                }
-            }, 1000);
+            <li><strong>Date of Birth:</strong> 10 August 1999</li>
 
-            document.getElementById("show-card-button").addEventListener("click", function () {
-                document.getElementById("greeting-card").style.display = "block";
-            });
+            <li><strong>Website :</strong> <a href="https://anu-anand.netlify.app"
+                target="_blank">anu-anand.netlify.app</a></li>
 
-            document.getElementById("close-card").addEventListener("click", function () {
-                document.getElementById("greeting-card").style.display = "none";
-                clearInterval(balloonInterval);
-                document.getElementById("balloons-container").innerHTML = "";
-            });
-        });
+            <li><strong>Email :</strong> minakshiraju4844@gmail.com</li>
+          </ul>
+        </div>
+        <div class="col-lg-5 mx-auto col-md-6 col-12">
+          <img src="./images/About.JPG" class="about-image img-fluid" alt="Anu❤️Anand">
+        </div>
+      </div>
+    </div>
+  </section>
 
-        let balloonInterval;
+  <!-- EXPERIENCE -->
+  <section class="testimonials section-padding" id="experience">
+    <div class="container">
+      <h2 class="mb-4">Experience</h2>
 
-        document.getElementById("show-card-button").addEventListener("click", function () {
-            let card = document.getElementById("greeting-card");
-            let balloonsContainer = document.getElementById("balloons-container");
+      <div class="col-12 col-md-12 col-lg-12">
+        <div class="card mb-4 p-2">
+          <div class="row">
+            <div class="edu-icons">
+              <i class="fas fa-chart-line fa-5x"></i>
+              <p>2024 - 2025</p>
+              <h2 class="card-title">Professional Mathematics Teacher</h2>
+              <h6>Akshara Public School, Gangavathi</h6>
+            </div>
+            <div class="card-body pb-0">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Designed and delivered engaging Mathematics lessons, simplifying complex
+                  concepts for better student understanding.</li>
+                <li class="list-group-item">Assessed student progress through quizzes, assignments, and practical
+                  exercises, ensuring continuous improvement.</li>
+                <li class="list-group-item">Provided individualized support to students struggling with Mathematical
+                  concepts, boosting their confidence and performance.</li>
+                <li class="list-group-item">Worked closely with colleagues to refine lesson plans, integrate modern
+                  teaching strategies, and improve overall student engagement in Mathematics.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-12 col-lg-12">
+        <div class="card mb-4 p-2">
+          <div class="row">
+            <div class="edu-icons">
+              <i class="fas fa-chalkboard-teacher fa-5x"></i>
+              <p>2021 - Present</p>
+              <h2 class="card-title">Private Mathematics Tutor</h2>
+              <h6>Self-Employed, Gangavathi</h6>
+            </div>
+            <div class="card-body pb-0">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Conducted personalized one-on-one and group tutoring sessions for students
+                  from various academic levels.
+                </li>
+                <li class="list-group-item">Developed customized study plans to strengthen mathematical fundamentals and
+                  advanced problem-solving techniques.
+                </li>
+                <li class="list-group-item">Helped students in school exams, competitive tests, and entrance exams by
+                  providing targeted coaching.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            // Show the greeting card
-            card.style.display = "block";
+  <!-- SKILLS -->
+  <section class="about section-padding" id="skills">
+    <div class="container">
+      <h2 class="mb-4">My Skills</h2>
+      <div class="row about-third">
+        <div class="col-lg-4 col-md-4 col-12">
+          <h3>Innovative Learning</h3>
+          <p>Mathematics is more than just numbers; it’s about building logical reasoning and analytical skills. By
+            integrating real-world examples and interactive techniques, I make learning an engaging and rewarding
+            experience.</p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-12">
+          <h3>Build Foundations</h3>
+          <p>A deep understanding of core concepts is essential for mastering Mathematics. I emphasize clarity,
+            practical applications and step-by-step problem-solving to help students build confidence and excel in
+            academics and beyond.
+          </p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-12">
+          <h3>Continuous Growth</h3>
+          <p>Education is a lifelong journey, and I am committed to continuously evolving my teaching methods. By
+            staying updated with the latest educational strategies, I ensure that my students receive the best learning
+            experience possible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            // Start generating 😘 emojis continuously
-            balloonInterval = setInterval(() => {
-                let emoji = document.createElement("div");
-                emoji.classList.add("emoji");
-                emoji.innerHTML = "😘"; // Emoji content
+  <!-- Education -->
+  <section class="resume-section p-5" id="education">
+    <div class="container">
+      <h2 class="mb-4">Education</h2>
+      <div class="col-12 col-md-12 col-lg-12">
+        <div class="card mb-4 p-2">
+          <div class="row">
+            <div class="edu-icons">
+              <i class="fas fa-user-graduate fa-5x"></i>
+              <p>Jan 2024 - Dec 2025</p>
+            </div>
+            <div class="card-body pb-0">
+              <h2 class="card-title">Master of Science(M.Sc)</h2>
+              <h5>Karnataka State Open University Mukthagangothri, Mysore</h5>
+              <h6>69.5%</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-12 col-lg-12">
+        <div class="card mb-4 p-2">
+          <div class="row">
+            <div class="edu-icons">
+              <i class="fas fa-graduation-cap fa-5x"></i>
+              <p>Mar 2021 - Jan 2023</p>
+            </div>
+            <div class="card-body pb-0">
+              <h2 class="card-title">Bachelor of Education(B.Ed)</h2>
+              <h5>T.M.A.E's B.Ed College, Gangavathi</h5>
+              <h6>85.62%</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-12 col-lg-12">
+        <div class="card mb-4 p-2">
+          <div class="row">
+            <div class="edu-icons">
+              <i class="fas fa-university fa-5x"></i>
+              <p>Aug 2019 - Dec 2021</p>
+            </div>
+            <div class="card-body pb-0">
+              <h2 class="card-title">Bachelor of Science(B.Sc)</h2>
+              <h5>Vijaynagar Sri Krishnadevaraya University, Ballari</h5>
+              <h6>85.7%</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-12 col-lg-12">
+        <div class="card mb-4 p-2">
+          <div class="row">
+            <div class="edu-icons">
+              <i class="fas fa-book-reader fa-5x"></i>
+              <p>Jun 2016 - Mar 2018</p>
+            </div>
+            <div class="card-body pb-0">
+              <h2 class="card-title">Pre-University Course(PUC)</h2>
+              <h5>Sri Vidayniketan PU College, Gangavathi</h5>
+              <h6>86.8%</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-12 col-lg-12">
+        <div class="card mb-4 p-2">
+          <div class="row">
+            <div class="edu-icons">
+              <i class="fas fa-school fa-5x"></i>
+              <p>Jun 2015 - Apr 2016</p>
+            </div>
+            <div class="card-body pb-0">
+              <h2 class="card-title">Secondary School Leaving Certificate(SSLC)</h2>
+              <h5>Sri Kottureshwara Vidyavardhaka Sangha, Gangavathi</h5>
+              <h6>92%</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                // Random position for emojis
-                emoji.style.left = Math.random() * window.innerWidth + "px";
-                emoji.style.animationDuration = (2 + Math.random() * 3) + "s"; // Random speed
-                balloonsContainer.appendChild(emoji);
+  <!-- Contact -->
+  <section class="contact section-padding" id="contact">
+    <div class="container">
+      <div class="row">
 
-                // Remove emoji after animation
-                setTimeout(() => {
-                    emoji.remove();
-                }, 4000);
-            }, 500); // Emojis every 500ms
-        });
-    </script>
+        <div class="col-lg-6 col-md-6 col-12">
+          <form action="#" method="get" class="contact-form webform" role="form">
+
+            <div class="form-group d-flex flex-column-reverse">
+              <input type="text" class="form-control" name="cf-name" id="cf-name" placeholder="Your Name">
+
+              <label for="cf-name" class="webform-label">Full Name</label>
+            </div>
+
+            <div class="form-group d-flex flex-column-reverse">
+              <input type="email" class="form-control" name="cf-email" id="cf-email" placeholder="Your Email">
+
+              <label for="cf-email" class="webform-label">Your Email</label>
+            </div>
+
+            <div class="form-group d-flex flex-column-reverse">
+              <textarea class="form-control" rows="5" name="cf-message" id="cf-message"
+                placeholder="Your Message"></textarea>
+
+              <label for="cf-message" class="webform-label">Message</label>
+            </div>
+
+            <button type="submit" class="form-control" id="submit-button" name="submit">Send</button>
+          </form>
+        </div>
+
+        <div class="mx-auto col-lg-4 col-md-6 col-12">
+          <h3 class="my-4 pt-4 pt-lg-0">Anu - Anand</h3>
+
+          <p class="mb-1"><a href="tel:+917411625092">+91-7411625092</a></p>
+
+          <p>
+            <a href="#">
+              anu-anand.netlify.app
+              <i class="fas fa-arrow-right custom-icon"></i>
+            </a>
+          </p>
+
+          <ul class="social-links mt-2">
+            <li><a href="https://www.instagram.com/_a_n_u_s_h_a_12/" target="_blank" rel="noopener" class="fab fa-instagram"></a></li>
+            <!-- <li><a href="https://www.threads.net/@_a_n_u_s_h_a_12/" rel="noopener" target="_blank" class="fab fa-threads"></a></li> -->
+            <li><a href="https://www.snapchat.com/add/anusha_anus1694" rel="noopener" target="_blank" class="fab fa-snapchat"></a></li>
+            <li><a href="https://t.me/+917411625092" target="_blank" rel="noopener" class="fab fa-telegram"></a></li>
+            <li><a href="https://wa.me/+917411625092" target="_blank" rel="noopener" class="fab fa-whatsapp"></a></li>
+            <li><a href="https://youtube.com/@minakshiraju3541" target="_blank" rel="noopener" class="fab fa-youtube"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="copyright">
+    <p class="copyright-text mt-5 pt-3">Copyright &copy; 2025 Anu's Portfolio</p>
+  </section>
+  <!-- SCRIPTS -->
+  <script src="./js/jquery.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/smoothscroll.js"></script>
+  <script src="./js/owl.carousel.min.js"></script>
+  <script src="./js/custom.js"></script>
+
 </body>
 
 </html>
